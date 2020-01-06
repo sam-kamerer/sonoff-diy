@@ -1,0 +1,35 @@
+package cmd
+
+import (
+	"github.com/pkg/errors"
+	"github.com/sam-kamerer/sonoff-diy/pkg/client"
+	"github.com/urfave/cli/v2"
+	"net"
+)
+
+func PowerOnState(c *cli.Context) error {
+	cl := client.New(net.ParseIP(c.String("ip")), c.Int("port"), c.String("device-id"))
+	var state client.PowerOnState
+	s := c.String("state")
+	switch s {
+	case "on":
+		state = client.PowerOnStateOn
+	case "off":
+		state = client.PowerOnStateOff
+	case "stay":
+		state = client.PowerOnStateStay
+	default:
+		return errors.Errorf("invalid power on state: %s", s)
+	}
+	return cl.PowerOnState(state)
+}
+
+func Switch(c *cli.Context) error {
+	cl := client.New(net.ParseIP(c.String("ip")), c.Int("port"), c.String("device-id"))
+	return cl.Switch(c.Bool("on"))
+}
+
+func Pulsate(c *cli.Context) error {
+	cl := client.New(net.ParseIP(c.String("ip")), c.Int("port"), c.String("device-id"))
+	return cl.Pulsate(c.Bool("on"), c.Int("pulse-duration"))
+}
