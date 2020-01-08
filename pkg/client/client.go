@@ -11,9 +11,13 @@ const (
 	PowerOnStateOn   PowerOnState = "on"
 	PowerOnStateOff  PowerOnState = "off"
 	PowerOnStateStay PowerOnState = "stay"
+
+	StateOn  State = "on"
+	StateOff State = "off"
 )
 
 type (
+	State        string
 	PowerOnState string
 	Client       struct {
 		ip       net.IP
@@ -61,10 +65,10 @@ func (c Client) DeviceInfo() (*DeviceInfoData, error) {
 	return di, resp.UnmarshalData(di)
 }
 
-func (c Client) Switch(on bool) error {
-	v := "off"
-	if on {
-		v = "on"
+func (c Client) Switch(state State) error {
+	v := StateOn
+	if state != StateOn {
+		v = StateOff
 	}
 	data, err := json.Marshal(map[string]interface{}{
 		"deviceid": c.deviceId,
@@ -89,20 +93,20 @@ func (c Client) PowerOnState(state PowerOnState) error {
 	return err
 }
 
-func (c Client) Pulsate(on bool, pulseDurationMs int) error {
-	v := "off"
-	if on {
-		v = "on"
+func (c Client) SleepTimer(state State, duration int) error {
+	v := StateOn
+	if state != StateOn {
+		v = StateOff
 	}
 	d := map[string]interface{}{"pulse": v}
 
-	if on {
-		if pulseDurationMs < 500 {
-			pulseDurationMs = 500
-		} else if pulseDurationMs > 36000000 {
-			pulseDurationMs = 36000000
+	if v == StateOn {
+		if duration < 1 {
+			duration = 1
+		} else if duration > 36000 {
+			duration = 36000
 		}
-		d["pulseWidth"] = int(float64(pulseDurationMs)/500.0) * 500
+		d["pulseWidth"] = duration * 1000
 	}
 	data, err := json.Marshal(map[string]interface{}{
 		"deviceid": c.deviceId,
