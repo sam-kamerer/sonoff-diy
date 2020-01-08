@@ -68,7 +68,7 @@ func main() {
 				&cli.IntFlag{
 					Name:    "duration",
 					Aliases: []string{"d"},
-					Usage:   "sets the duration of device discovery",
+					Usage:   "sets the duration of device discovery in seconds",
 					Value:   10,
 				},
 			},
@@ -83,9 +83,10 @@ func main() {
 			Aliases: []string{"sw"},
 			Usage:   "Switch device state",
 			Flags: []cli.Flag{
-				&cli.BoolFlag{
-					Name:  "on",
-					Usage: "sets the device state (if not exists, sets the off state)",
+				&cli.StringFlag{
+					Name:    "state",
+					Aliases: []string{"s"},
+					Usage:   "sets the device state (ex: on or off)",
 				},
 			},
 			Action: cmd.Switch,
@@ -96,28 +97,31 @@ func main() {
 			Flags: []cli.Flag{
 				&cli.StringFlag{
 					Name:     "state",
-					Usage:    "sets the power on device state (on, off or stay)",
+					Aliases:  []string{"s"},
+					Usage:    "sets the power on device state (ex: on, off or stay)",
 					Required: true,
 				},
 			},
 			Action: cmd.PowerOnState,
 		}, {
-			Name:    "pulsate",
-			Aliases: []string{"pu"},
-			Usage:   "Sets pulsing state",
+			Name:    "sleep-timer",
+			Aliases: []string{"st"},
+			Usage:   "Sets sleep timer",
 			Flags: []cli.Flag{
-				&cli.BoolFlag{
-					Name:     "on",
-					Usage:    "sets the device state",
+				&cli.StringFlag{
+					Name:     "state",
+					Aliases:  []string{"s"},
+					Usage:    "sets the device sleep timer state (ex: on or off)",
 					Required: true,
 				},
 				&cli.IntFlag{
-					Name:  "pulse-duration",
-					Usage: "sets pulse duration in ms",
-					Value: 2000,
+					Name:    "duration",
+					Aliases: []string{"d"},
+					Usage:   "sets timer duration in seconds",
+					Value:   10,
 				},
 			},
-			Action: cmd.Pulsate,
+			Action: cmd.SleepTimer,
 		}, {
 			Name:    "wifi-signal",
 			Aliases: []string{"wfs"},

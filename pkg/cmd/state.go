@@ -26,10 +26,10 @@ func PowerOnState(c *cli.Context) error {
 
 func Switch(c *cli.Context) error {
 	cl := client.New(net.ParseIP(c.String("ip")), c.Int("port"), c.String("device-id"))
-	return cl.Switch(c.Bool("on"))
+	return cl.Switch(client.State(c.String("state")))
 }
 
-func Pulsate(c *cli.Context) error {
+func SleepTimer(c *cli.Context) error {
 	cl := client.New(net.ParseIP(c.String("ip")), c.Int("port"), c.String("device-id"))
-	return cl.Pulsate(c.Bool("on"), c.Int("pulse-duration"))
+	return cl.SleepTimer(client.State(c.String("state")), c.Int("duration"))
 }
