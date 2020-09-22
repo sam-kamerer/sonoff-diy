@@ -1,4 +1,6 @@
 ## sonoff-diy
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsam-kamerer%2Fsonoff-diy.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsam-kamerer%2Fsonoff-diy?ref=badge_shield)
+
 The tool for work with Sonoff devices (Basic R3/RFR3/Mini) in the DIY MODE.
 
 ```
@@ -36,3 +38,6 @@ GLOBAL OPTIONS:
    --help, -h         show help (default: false)
    --version, -v      print the version (default: false)
 ```
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsam-kamerer%2Fsonoff-diy.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsam-kamerer%2Fsonoff-diy?ref=badge_large)
