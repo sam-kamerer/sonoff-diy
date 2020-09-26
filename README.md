@@ -1,4 +1,12 @@
 ## sonoff-diy
+
+[![GitHub All Releases](https://img.shields.io/github/downloads/sam-kamerer/sonoff-diy/total)](https://github.com/sam-kamerer/sonoff-diy/releases)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sam-kamerer/sonoff-diy/Release)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/sam-kamerer/sonoff-diy)
+![GitHub top language](https://img.shields.io/github/languages/top/sam-kamerer/sonoff-diy)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/sam-kamerer/sonoff-diy)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/sam-kamerer/sonoff-diy?sort=semver)](https://github.com/sam-kamerer/sonoff-diy/releases/latest)
+
 The tool for work with Sonoff devices (Basic R3/RFR3/Mini) in the DIY MODE.
 
 ```
@@ -11,17 +19,14 @@ USAGE:
    sonoff-diy [global options] command [command options] [arguments...]
 
 VERSION:
-   v1.0.0
-
-AUTHOR:
-   Andrey Semerun <andrey.semerun@gmail.com>
+   v1.1.1
 
 COMMANDS:
    discover, d          Discover devices
    device-info, di      Print specified device info
    switch, sw           Switch device state
    power-on-state, pos  Sets power on device state
-   pulsate, pu          Sets pulsing state
+   sleep-timer, st      Sets sleep timer
    wifi-signal, wfs     Print the WiFi signal strength of the specified device
    wifi-config, wfc     Sets the WiFi SSID and password for specified device
    unlock-ota, uo       Unlocks ability for flash firmware over the air for the specified device
