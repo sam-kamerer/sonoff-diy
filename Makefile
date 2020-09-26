@@ -10,13 +10,13 @@ default: usage
 tidy: ## Run go mod tidy
 	@go mod tidy -v
 
-#.PHONY: pack
-#pack: ## Pack app resources
-#	statik -f -src ./web/build
-
 .PHONY: build
 build: | tidy ## Build app
 	go build -ldflags '-s -w' -o bin/sonoff-diy ./cmd/sonoff-diy/main.go
+
+.PHONY: outdated-deps
+outdated-deps: ## List outdated dependencies
+	@go list -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all
 
 .PHONY: usage
 usage: ## List available targets
