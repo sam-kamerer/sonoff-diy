@@ -1,8 +1,3 @@
-LDFLAGS :=
-
-race-flag:
-	@$(eval LDFLAGS=$(LDFLAGS) -ldflags -race)
-
 .PHONY: default
 default: usage
 
