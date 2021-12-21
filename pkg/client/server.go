@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/schollz/progressbar/v2"
 	"io"
-	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
@@ -39,17 +38,17 @@ func serveFile(filePath string, endCh chan struct{}) (string, string, error) {
 		return "", "", err
 	}
 	hashSum := fmt.Sprintf("%x", hash.Sum(nil))
-	f, err := ioutil.TempFile("", "firmware-*")
+	tmpFile, err := os.CreateTemp("sonoff-diy", "firmware-*")
 	if err != nil {
 		return "", "", err
 	}
-	defer f.Close()
+	defer tmpFile.Close()
 
 	_, err = fw.Seek(0, io.SeekStart)
 	if err != nil {
 		return hashSum, "", err
 	}
-	_, err = io.Copy(f, fw)
+	_, err = io.Copy(tmpFile, fw)
 	if err != nil {
 		return hashSum, "", err
 	}
@@ -57,7 +56,7 @@ func serveFile(filePath string, endCh chan struct{}) (string, string, error) {
 	if err != nil {
 		return hashSum, "", err
 	}
-	fwFileName := filepath.Base(f.Name())
+	fwFileName := filepath.Base(tmpFile.Name())
 	go func(l net.Listener) {
 		defer func() {
 			endCh <- struct{}{}
@@ -65,7 +64,7 @@ func serveFile(filePath string, endCh chan struct{}) (string, string, error) {
 		respEndCh := make(chan struct{}, 1)
 		server := &http.Server{}
 		http.Handle("/"+fwFileName, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			f, err := os.Open(f.Name())
+			f, err := os.Open(tmpFile.Name())
 			if err != nil {
 				log.Println(err)
 				w.WriteHeader(500)

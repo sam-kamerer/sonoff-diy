@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/sam-kamerer/sonoff-diy/pkg/vars"
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/sam-kamerer/sonoff-diy/pkg/vars"
 )
 
 const requestContentType = "application/json"
