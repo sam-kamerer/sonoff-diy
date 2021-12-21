@@ -24,14 +24,12 @@ func main() {
 		fmt.Fprintf(c.App.Writer, "Version:\t%s\nBuild at:\t%s\nCommit:\t\t%s\n", c.App.Version, date, commit)
 	}
 	app := &cli.App{
-		Name:     "sonoff-diy",
-		Version:  version,
-		Compiled: compiled,
-		Usage:    "The tool for work with Sonoff devices (Basic R3/RFR3/Mini) in the DIY MODE",
-		Authors: []*cli.Author{{
-			Name:  "Andrey Semerun",
-			Email: "andrey.semerun@gmail.com",
-		}},
+		Name:                   "sonoff-diy",
+		Version:                version,
+		Compiled:               compiled,
+		Usage:                  "The tool for work with Sonoff devices (Basic R3/RFR3/Mini) in the DIY MODE",
+		UseShortOptionHandling: true,
+		EnableBashCompletion:   true,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:    "ip",
@@ -71,7 +69,17 @@ func main() {
 					Name:    "duration",
 					Aliases: []string{"d"},
 					Usage:   "sets the duration of device discovery in seconds",
-					Value:   10,
+					Value:   15,
+				},
+				&cli.StringFlag{
+					Name:    "serviceType",
+					Aliases: []string{"st"},
+					Usage:   "sets service type for discovery (ex.: _workstation._tcp)",
+				},
+				&cli.StringFlag{
+					Name:    "serviceDomain",
+					Aliases: []string{"sd"},
+					Usage:   "sets service domain for discovery (ex.: local.)",
 				},
 			},
 			Action: cmd.List,
