@@ -1,10 +1,12 @@
 package cmd
 
 import (
-	"github.com/pkg/errors"
-	"github.com/sam-kamerer/sonoff-diy/pkg/client"
-	"github.com/urfave/cli/v2"
 	"net"
+
+	"github.com/pkg/errors"
+	"github.com/urfave/cli/v2"
+
+	"github.com/sam-kamerer/sonoff-diy/pkg/client"
 )
 
 func PowerOnState(c *cli.Context) error {

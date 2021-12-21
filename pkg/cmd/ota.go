@@ -1,9 +1,11 @@
 package cmd
 
 import (
-	"github.com/sam-kamerer/sonoff-diy/pkg/client"
-	"github.com/urfave/cli/v2"
 	"net"
+
+	"github.com/urfave/cli/v2"
+
+	"github.com/sam-kamerer/sonoff-diy/pkg/client"
 )
 
 func UnlockOTA(c *cli.Context) error {

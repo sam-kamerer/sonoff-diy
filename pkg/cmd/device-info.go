@@ -2,10 +2,12 @@ package cmd
 
 import (
 	"encoding/json"
-	"github.com/sam-kamerer/sonoff-diy/pkg/client"
-	"github.com/urfave/cli/v2"
 	"net"
 	"os"
+
+	"github.com/urfave/cli/v2"
+
+	"github.com/sam-kamerer/sonoff-diy/pkg/client"
 )
 
 func DeviceInfo(c *cli.Context) error {

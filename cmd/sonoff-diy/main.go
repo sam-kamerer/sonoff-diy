@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/sam-kamerer/sonoff-diy/pkg/cmd"
-	"github.com/sam-kamerer/sonoff-diy/pkg/vars"
-	"github.com/urfave/cli/v2"
 	"log"
 	"os"
 	"time"
+
+	"github.com/urfave/cli/v2"
+
+	"github.com/sam-kamerer/sonoff-diy/pkg/cmd"
+	"github.com/sam-kamerer/sonoff-diy/pkg/vars"
 )
 
 var (
