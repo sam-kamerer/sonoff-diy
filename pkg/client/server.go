@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
-	"github.com/schollz/progressbar/v2"
 	"io"
 	"log"
 	"net"
@@ -13,17 +12,9 @@ import (
 	"path/filepath"
 	"strconv"
 	"time"
+
+	"github.com/schollz/progressbar/v3"
 )
-
-type ProgressBar struct {
-	Bar *progressbar.ProgressBar
-}
-
-func (b *ProgressBar) Write(p []byte) (int, error) {
-	n := len(p)
-	_ = b.Bar.Add(n)
-	return n, nil
-}
 
 func serveFile(filePath string, endCh chan struct{}) (string, string, error) {
 	fw, err := os.Open(filePath)
@@ -75,7 +66,8 @@ func serveFile(filePath string, endCh chan struct{}) (string, string, error) {
 			fStat, _ := f.Stat()
 			w.Header().Set("Content-Type", "application/octet-stream")
 			w.Header().Set("Content-Disposition", `attachment; filename="`+fwFileName+`"`)
-			c, err := io.Copy(w, io.TeeReader(f, &ProgressBar{Bar: progressbar.New64(fStat.Size())}))
+
+			c, err := io.Copy(io.MultiWriter(w, progressbar.DefaultBytes(fStat.Size(), "sending")), f)
 			fmt.Println("")
 			if err != nil {
 				log.Println(err)
