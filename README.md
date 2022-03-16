@@ -1,5 +1,6 @@
 ## sonoff-diy
 
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/sam-kamerer/sonoff-diy?sort=semver)](https://github.com/sam-kamerer/sonoff-diy/releases/latest)
 [![GitHub All Releases](https://img.shields.io/github/downloads/sam-kamerer/sonoff-diy/total)](https://github.com/sam-kamerer/sonoff-diy/releases)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sam-kamerer/sonoff-diy/Release)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/sam-kamerer/sonoff-diy)
