@@ -1,12 +1,11 @@
 ## sonoff-diy
 
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/sam-kamerer/sonoff-diy?sort=semver)](https://github.com/sam-kamerer/sonoff-diy/releases/latest)
 [![GitHub All Releases](https://img.shields.io/github/downloads/sam-kamerer/sonoff-diy/total)](https://github.com/sam-kamerer/sonoff-diy/releases)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sam-kamerer/sonoff-diy/Release)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/sam-kamerer/sonoff-diy)
 ![GitHub top language](https://img.shields.io/github/languages/top/sam-kamerer/sonoff-diy)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/sam-kamerer/sonoff-diy)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/sam-kamerer/sonoff-diy?sort=semver)](https://github.com/sam-kamerer/sonoff-diy/releases/latest)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsam-kamerer%2Fsonoff-diy.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsam-kamerer%2Fsonoff-diy?ref=badge_shield)
 
 The tool for work with Sonoff devices (Basic R3/RFR3/Mini) in the DIY MODE.
 
@@ -42,6 +41,3 @@ GLOBAL OPTIONS:
    --help, -h         show help (default: false)
    --version, -v      print the version (default: false)
 ```
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsam-kamerer%2Fsonoff-diy.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsam-kamerer%2Fsonoff-diy?ref=badge_large)
