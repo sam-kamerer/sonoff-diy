@@ -7,6 +7,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/rivo/uniseg v0.4.3 // indirect
 	github.com/schollz/progressbar/v3 v3.13.1
-	github.com/urfave/cli/v2 v2.25.3
+	github.com/urfave/cli/v2 v2.25.5
 	golang.org/x/crypto v0.1.0 // indirect
 )
