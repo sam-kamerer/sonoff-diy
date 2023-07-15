@@ -8,7 +8,23 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/sam-kamerer/sonoff-diy)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/sam-kamerer/sonoff-diy?sort=semver)](https://github.com/sam-kamerer/sonoff-diy/releases/latest)
 
-The tool for work with Sonoff devices (Basic R3/RFR3/Mini) in the DIY MODE.
+Sonoff-diy is a command-line tool for controlling Sonoff devices in DIY mode. It allows you to discover devices, print device information, switch device state, set power on state, set sleep timer, print WiFi signal strength, set WiFi SSID and password, unlock OTA flashing, and flash firmware over the air.
+
+The tool is easy to use and can be used from the command line. To get started, simply install the tool and then run the `discover` command to discover all of your Sonoff devices. Once you have discovered your devices, you can use the other commands to control them.
+
+For example, to switch the state of a device, you would use the `switch` command. To print the device information, you would use the `device-info` command. And to set the WiFi SSID and password, you would use the `wifi-config` command.
+
+The tool is also very flexible and allows you to customize the behavior of each command. For example, you can set the device IP address, port, and device ID. You can also enable debug mode to get more information about the tool's operation.
+
+Overall, sonoff-diy is a powerful and versatile tool for controlling Sonoff devices in DIY mode. It is easy to use and can be customized to meet your specific needs.
+
+Here are some additional benefits of using sonoff-diy:
+
+* It is free and open source.
+* It is cross-platform and can be used on Windows, macOS, and Linux.
+* It is constantly being updated with new features and bug fixes.
+
+If you are looking for a powerful and versatile tool for controlling Sonoff devices in DIY mode, then sonoff-diy is the perfect choice for you.
 
 ```
 $ sonoff-diy --help
