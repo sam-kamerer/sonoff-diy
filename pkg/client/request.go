@@ -4,14 +4,22 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"log"
+	"io"
 	"net/http"
-
-	"github.com/sam-kamerer/sonoff-diy/pkg/vars"
 )
 
 const requestContentType = "application/json"
+
+const (
+	// HTTPStatusBadRequest indicates that the request was invalid or cannot be otherwise processed.
+	HTTPStatusBadRequest = 400
+	// HTTPStatusUnauthorized indicates that the request has not been applied because it lacks valid authentication credentials for the targeting resource.
+	HTTPStatusUnauthorized = 401
+	// HTTPStatusNotFound indicates that the target resource does not exist.
+	HTTPStatusNotFound = 404
+	// HTTPStatusUnprocessableEntity indicates that the server understands the content type of the request entity, and the syntax of the request entity is correct but was unable to process the contained instructions.
+	HTTPStatusUnprocessableEntity = 422
+)
 
 type (
 	Response struct {
@@ -47,17 +55,12 @@ func (e ResponseError) Code() int {
 	return e.code
 }
 
-func request(url string, data []byte) (*Response, error) {
+func sendRequest(url string, data []byte) (*Response, error) {
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(data))
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("Content-Type", requestContentType)
-
-	if vars.Debug {
-		log.Printf("request url: %s", url)
-		log.Printf("request body: %v", string(data))
-	}
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -66,38 +69,35 @@ func request(url string, data []byte) (*Response, error) {
 	}
 	defer resp.Body.Close()
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	return handleResponse(resp)
+}
 
-	if vars.Debug {
-		log.Printf("response status: %v", resp.Status)
-		log.Println("response headers:")
-		jsonString, err := json.MarshalIndent(resp.Header, "", "  ")
-		if err != nil {
-			log.Printf("error: %v", err)
-		}
-		log.Printf("%s", jsonString)
-		log.Printf("response body:\n%v", string(body))
-	}
+func handleResponse(resp *http.Response) (*Response, error) {
+	body, _ := io.ReadAll(resp.Body)
 
 	if resp.StatusCode >= 400 {
-		respErr := ResponseError{code: resp.StatusCode}
-		switch resp.StatusCode {
-		case 400:
-			respErr.msg = fmt.Sprintf("the request body is not a valid JSON format: %s", string(data))
-		case 401:
-			respErr.msg = "device information encryption is enabled on the device, but the request is not encrypted"
-		case 404:
-			respErr.msg = "the device does not support the requested deviceid"
-		case 422:
-			respErr.msg = "the request parameters are invalid"
-		default:
-			respErr.msg = fmt.Sprintf("undefined error: %d", resp.StatusCode)
-		}
-		return nil, respErr
+		return createErrorResponse(resp.StatusCode, body)
 	}
 
 	res := &Response{}
 	return res, json.Unmarshal(body, res)
+}
+
+func createErrorResponse(statusCode int, body []byte) (*Response, error) {
+	respErr := ResponseError{code: statusCode}
+	switch statusCode {
+	case HTTPStatusBadRequest:
+		respErr.msg = fmt.Sprintf("the request body is not a valid JSON format: %s", string(body))
+	case HTTPStatusUnauthorized:
+		respErr.msg = "device information encryption is enabled on the device, but the request is not encrypted"
+	case HTTPStatusNotFound:
+		respErr.msg = "the device does not support the requested deviceid"
+	case HTTPStatusUnprocessableEntity:
+		respErr.msg = "the request parameters are invalid"
+	default:
+		respErr.msg = fmt.Sprintf("undefined error: %d", statusCode)
+	}
+	return nil, respErr
 }
 
 func (r Response) UnmarshalData(v interface{}) error {

@@ -58,7 +58,7 @@ func (c Client) DeviceInfo() (*DeviceInfoData, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := request(c.url("/zeroconf/info"), data)
+	resp, err := sendRequest(c.url("/zeroconf/info"), data)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c Client) Switch(state State) error {
 	if err != nil {
 		return err
 	}
-	_, err = request(c.url("/zeroconf/switch"), data)
+	_, err = sendRequest(c.url("/zeroconf/switch"), data)
 	return err
 }
 
@@ -90,7 +90,7 @@ func (c Client) PowerOnState(state PowerOnState) error {
 	if err != nil {
 		return err
 	}
-	_, err = request(c.url("/zeroconf/startup"), data)
+	_, err = sendRequest(c.url("/zeroconf/startup"), data)
 	return err
 }
 
@@ -116,7 +116,7 @@ func (c Client) SleepTimer(state State, duration int) error {
 	if err != nil {
 		return err
 	}
-	_, err = request(c.url("/zeroconf/pulse"), data)
+	_, err = sendRequest(c.url("/zeroconf/pulse"), data)
 	return err
 }
 
@@ -128,7 +128,7 @@ func (c Client) WiFiSignal() (int, error) {
 	if err != nil {
 		return 0, err
 	}
-	resp, err := request(c.url("/zeroconf/signal_strength"), data)
+	resp, err := sendRequest(c.url("/zeroconf/signal_strength"), data)
 	if err != nil {
 		return 0, err
 	}
@@ -147,7 +147,7 @@ func (c Client) WiFiConfig(ssid, password string) error {
 	if err != nil {
 		return err
 	}
-	_, err = request(c.url("/zeroconf/wifi"), data)
+	_, err = sendRequest(c.url("/zeroconf/wifi"), data)
 	return err
 }
 
@@ -159,7 +159,7 @@ func (c Client) UnlockOTA() error {
 	if err != nil {
 		return err
 	}
-	_, err = request(c.url("/zeroconf/ota_unlock"), data)
+	_, err = sendRequest(c.url("/zeroconf/ota_unlock"), data)
 	return err
 }
 
@@ -179,7 +179,7 @@ func (c Client) FlashFirmware(filePath string) error {
 	if err != nil {
 		return err
 	}
-	_, err = request(c.url("/zeroconf/ota_flash"), data)
+	_, err = sendRequest(c.url("/zeroconf/ota_flash"), data)
 	if err == nil {
 		return nil
 	}
