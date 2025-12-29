@@ -7,7 +7,7 @@ toolchain go1.24.0
 require (
 	github.com/grandcat/zeroconf v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/schollz/progressbar/v3 v3.18.0
+	github.com/schollz/progressbar/v3 v3.19.0
 	github.com/urfave/cli/v2 v2.27.7
 )
 
