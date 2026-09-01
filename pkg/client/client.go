@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
-
-	"github.com/pkg/errors"
 )
 
 const (
@@ -187,15 +185,15 @@ func (c Client) FlashFirmware(filePath string) error {
 	if e, ok := err.(ResponseError); ok {
 		switch e.Code() {
 		case 403:
-			err = errors.New("the OTA function was not unlocked, the interface '3.2.6OTA function unlocking' must be successfully called first")
+			err = fmt.Errorf("the OTA function was not unlocked, the interface '3.2.6OTA function unlocking' must be successfully called first")
 		case 408:
-			err = errors.New("the pre-download firmware timed out, you can try to call this interface again after optimizing the network environment or increasing the network speed")
+			err = fmt.Errorf("the pre-download firmware timed out, you can try to call this interface again after optimizing the network environment or increasing the network speed")
 		case 413:
-			err = errors.New("the request body size is too large, the size of the new OTA firmware exceeds the firmware size limit allowed by the device")
+			err = fmt.Errorf("the request body size is too large, the size of the new OTA firmware exceeds the firmware size limit allowed by the device")
 		case 424:
-			err = errors.New("the firmware could not be downloaded, the URL address is unreachable (IP address is unreachable, HTTP protocol is unreachable, firmware does not exist, server does not support Range request header, etc.)")
+			err = fmt.Errorf("the firmware could not be downloaded, the URL address is unreachable (IP address is unreachable, HTTP protocol is unreachable, firmware does not exist, server does not support Range request header, etc.)")
 		case 471:
-			err = errors.New("the firmware integrity check failed, the SHA256 checksum of the downloaded new firmware does not match the value of the request body's sha256sum field. Restarting the device will cause bricking issue")
+			err = fmt.Errorf("the firmware integrity check failed, the SHA256 checksum of the downloaded new firmware does not match the value of the request body's sha256sum field. Restarting the device will cause bricking issue")
 		}
 		return err
 	}

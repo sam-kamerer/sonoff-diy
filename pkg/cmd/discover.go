@@ -13,7 +13,6 @@ import (
 	"time"
 
 	"github.com/grandcat/zeroconf"
-	"github.com/pkg/errors"
 	"github.com/urfave/cli/v2"
 )
 
@@ -45,7 +44,7 @@ func List(c *cli.Context) error {
 	// Discover all services on the network (e.g. _workstation._tcp)
 	resolver, err := zeroconf.NewResolver(nil)
 	if err != nil {
-		return errors.Wrap(err, "failed to initialize resolver")
+		return fmt.Errorf("failed to initialize resolver: %w", err)
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 0, 8, 4, '\t', 0)
@@ -64,7 +63,7 @@ func List(c *cli.Context) error {
 	defer cancel()
 	err = resolver.Browse(ctx, service, domain, entries)
 	if err != nil {
-		return errors.Wrap(err, "failed to browse services")
+		return fmt.Errorf("failed to browse services: %w", err)
 	}
 	<-ctx.Done()
 	_ = w.Flush()

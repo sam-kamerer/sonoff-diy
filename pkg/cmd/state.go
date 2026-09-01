@@ -1,9 +1,9 @@
 package cmd
 
 import (
+	"fmt"
 	"net"
 
-	"github.com/pkg/errors"
 	"github.com/urfave/cli/v2"
 
 	"github.com/sam-kamerer/sonoff-diy/pkg/client"
@@ -21,7 +21,7 @@ func PowerOnState(c *cli.Context) error {
 	case "stay":
 		state = client.PowerOnStateStay
 	default:
-		return errors.Errorf("invalid power on state: %s", s)
+		return fmt.Errorf("invalid power on state: %s", s)
 	}
 	return cl.PowerOnState(state)
 }
